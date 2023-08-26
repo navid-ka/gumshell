@@ -1,0 +1,16 @@
+#!/bin/bash
+
+while true; do
+	read -p ">< " user_command
+	if [[ "$user_command" == "exit" ]]; then
+		echo "Exiting..."
+		break
+	fi
+
+	command_output=$(eval "$user_command" 2>&1)
+
+	input_style=$(gum style --padding "0 0" --width 50 --align center --border "none" --border-foreground 212 "$user_command")
+	output_style=$(gum style --padding "2 2" --width 100 --border normal --border-foreground 213 "$command_output")
+
+	gum join --align center --vertical "$input_style" "$output_style"
+done
